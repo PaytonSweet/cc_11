@@ -57,9 +57,28 @@ class Library { // creates library class
     listBooks(){
         this.books.forEach(book => console.log(book.getDetails()));
     }; // finds each book in the array and logs the books details
+
+    // Task 4
+    lendBook(borrowerId, isbn){
+        const book = this.books.find(book => book.isbn === isbn);
+        const borrower = this.borrowers.find(borrower => borrower.borrwerId === borrowerId);
+
+        if (book && borrower && book.copies > 1) {
+            book.updateCopies(-1);
+            borrower.borrowBook(book.title);        
+        } else {
+            console.log("Cannot lend book.")
+        }
+    }
 }
 
 // Task 3 Test Cases
 const library = new Library(); // makes library constant
 library.addBook(book1); // adds book1 to library
 library.listBooks(); // logs each book in library
+
+// Task 4: Implementing Book Borrowing
+// Task 4 Test Cases
+library.lendBook(201, 123456); // lends book isbn 123456 to borrowerID 201
+console.log(book1.getDetails()); // logs book details. copies is one less
+console.log(borrower1.borrowedBooks); // logs borrowers borrowed books
