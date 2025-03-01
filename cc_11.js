@@ -14,6 +14,7 @@ class Book { // creates book class
         this.copies += quantity; // changes copies amount based on quantity
     }
 }
+
 // Task 1 Test Cases
 const book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 123456, 5); // makes a new book
 console.log(book1.getDetails()); // logs details of the book
@@ -35,9 +36,30 @@ class Borrower { // creates borrower class
         this.borrowedBooks = this.borrowedBooks.filter(b => b !== book);
     }; // filters for book in borrowed array
 };
+
 // Task 2 Test Cases
 const borrower1 = new Borrower("Alice Johnson", 201); // makes new borrower
 borrower1.borrowBook("The Great Gatsby"); // adds book to borrower array
 console.log(borrower1.borrowedBooks); // logs array of borrowed books
 borrower1.returnBook("The Great Gatsby"); // remove book from borrower array
 console.log(borrower1.borrowedBooks); // logs array of borrowed books
+
+// Task 3: Creating a Library Class
+
+class Library { // creates library class
+    constructor(books, borrowers) { // creates two arrays 
+        this.books = []; // links books array
+        this.borrowers = []; // links borrowers array
+    };
+    addBook(book){
+        this.books.push(book) // adds book into books array
+    };
+    listBooks(){
+        this.books.forEach(book => console.log(book.getDetails()));
+    }; // finds each book in the array and logs the books details
+}
+
+// Task 3 Test Cases
+const library = new Library(); // makes library constant
+library.addBook(book1); // adds book1 to library
+library.listBooks(); // logs each book in library
