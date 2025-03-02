@@ -59,9 +59,12 @@ class Library { // creates library class
     }; // finds each book in the array and logs the books details
 
     // Task 4
+    addBorrower(borrower){ // adds a method to add borrowers to library
+        this.borrowers.push(borrower);
+    }
     lendBook(borrowerId, isbn) {
         const book = this.books.find(book => book.isbn === isbn);
-        const borrower = this.borrowers.find(borrower => borrower.borrwerId === borrowerId);
+        const borrower = this.borrowers.find(borrower => borrower.borrowerId === borrowerId);
 
         if (book && borrower && book.copies > 1) { // checks conditions to lend book
             book.updateCopies(-1); // removes 1 from stock
@@ -72,7 +75,7 @@ class Library { // creates library class
     }
     
     // Task 5
-    returnBook(BorrowerId, isbn) {
+    returnBook(borrowerId, isbn) {
         const book = this.books.find(book => book.isbn === isbn);
         const borrower = this.borrowers.find(borrower => borrower.borrowerId === borrowerId);
         if (book && borrower) { // checks conditions to return book
@@ -84,6 +87,7 @@ class Library { // creates library class
 
 // Task 3 Test Cases
 const library = new Library(); // makes library constant
+library.addBorrower(borrower1); // adds borrower1 to library
 library.addBook(book1); // adds book1 to library
 library.listBooks(); // logs each book in library
 
