@@ -7,10 +7,10 @@ class Book { // creates book class
         this.isbn = isbn;
         this.copies = copies;
     };
-    getDetails(){
+    getDetails() {
         return `Title: ${this.title}, Author: ${this.author}, ISBN: ${this.isbn}, Copies: ${this.copies}`
     }; // returns properties in template literal
-    updateCopies(quantity){
+    updateCopies(quantity) {
         this.copies += quantity; // changes copies amount based on quantity
     }
 }
@@ -29,10 +29,10 @@ class Borrower { // creates borrower class
         this.borrowerId = borrowerId;
         this.borrowedBooks = []; // makes borrowedBooks an array
     };
-    borrowBook(book){
+    borrowBook(book) {
         this.borrowedBooks.push(book); // adds book to borrowed array
     };
-    returnBook(book){
+    returnBook(book) {
         this.borrowedBooks = this.borrowedBooks.filter(b => b !== book);
     }; // filters for book in borrowed array
 };
@@ -51,23 +51,33 @@ class Library { // creates library class
         this.books = []; // links books array
         this.borrowers = []; // links borrowers array
     };
-    addBook(book){
+    addBook(book) {
         this.books.push(book) // adds book into books array
     };
-    listBooks(){
+    listBooks() {
         this.books.forEach(book => console.log(book.getDetails()));
     }; // finds each book in the array and logs the books details
 
     // Task 4
-    lendBook(borrowerId, isbn){
+    lendBook(borrowerId, isbn) {
         const book = this.books.find(book => book.isbn === isbn);
         const borrower = this.borrowers.find(borrower => borrower.borrwerId === borrowerId);
 
-        if (book && borrower && book.copies > 1) {
-            book.updateCopies(-1);
+        if (book && borrower && book.copies > 1) { // checks conditions to lend book
+            book.updateCopies(-1); // removes 1 from stock
             borrower.borrowBook(book.title);        
         } else {
             console.log("Cannot lend book.")
+        }
+    }
+    
+    // Task 5
+    returnBook(BorrowerId, isbn) {
+        const book = this.books.find(book => book.isbn === isbn);
+        const borrower = this.borrowers.find(borrower => borrower.borrowerId === borrowerId);
+        if (book && borrower) { // checks conditions to return book
+            book.updateCopies(1); // adds 1 to stock
+            borrower.returnBook(book.title);
         }
     }
 }
@@ -82,3 +92,9 @@ library.listBooks(); // logs each book in library
 library.lendBook(201, 123456); // lends book isbn 123456 to borrowerID 201
 console.log(book1.getDetails()); // logs book details. copies is one less
 console.log(borrower1.borrowedBooks); // logs borrowers borrowed books
+
+// Task 5: Implementing Book Returns
+// Task 5 Test Cases
+library.returnBook(201, 123456); // returns book
+console.log(book1.getDetails()); // logs book details
+console.log(borrower1.borrowedBooks); 
