@@ -29,8 +29,8 @@ class Borrower { // creates borrower class
         this.borrowerId = borrowerId;
         this.borrowedBooks = []; // makes borrowedBooks an array
     };
-    borrowBook(book) {
-        this.borrowedBooks.push(book); // adds book to borrowed array
+    borrowBook(bookTitle) {
+        this.borrowedBooks.push(bookTitle); // adds book to borrowed array
     };
     returnBook(book) {
         this.borrowedBooks = this.borrowedBooks.filter(b => b !== book);
@@ -66,7 +66,7 @@ class Library { // creates library class
         const book = this.books.find(book => book.isbn === isbn);
         const borrower = this.borrowers.find(borrower => borrower.borrowerId === borrowerId);
 
-        if (book && borrower && book.copies > 1) { // checks conditions to lend book
+        if (book && borrower && book.copies > 0) { // checks conditions to lend book
             book.updateCopies(-1); // removes 1 from stock
             borrower.borrowBook(book.title);        
         } else {
